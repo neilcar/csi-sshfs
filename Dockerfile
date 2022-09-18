@@ -3,18 +3,17 @@ RUN apk add --no-cache git
 
 ENV CGO_ENABLED=0, GO111MODULE=on
 
-WORKDIR /go/src/github.com/chr-fritz/csi-sshfs
+WORKDIR /go/src/
 
-ADD . /go/src/github.com/chr-fritz/csi-sshfs
+ADD . /go/src/
 
 ARG TARGETOS TARGETARCH
 
 RUN GOOS=$TARGETOS GOARCH=$TARGETARCH go mod download
-RUN GOOS=$TARGETOS GOARCH=$TARGETARCH go test
 RUN GOOS=$TARGETOS GOARCH=$TARGETARCH export BUILD_TIME=`date -R` && \
     export VERSION=`cat version.txt 2&> /dev/null` && \
     apk add --no-cache gcc libc-dev && \
-    go build -o /csi-sshfs -ldflags "-X 'github.com/chr-fritz/csi-sshfs/pkg/sshfs.BuildTime=${BUILD_TIME}' -X 'github.com/chr-fritz/csi-sshfs/pkg/sshfs.Version=${VERSION}'" github.com/chr-fritz/csi-sshfs/cmd/csi-sshfs
+    go build -o /csi-sshfs -ldflags "-X 'pkg/sshfs.BuildTime=${BUILD_TIME}' -X 'pkg/sshfs.Version=${VERSION}'" gcmd/csi-sshfs
 
 FROM alpine:3.16
 
