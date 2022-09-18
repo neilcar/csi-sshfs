@@ -3,6 +3,8 @@ RUN apk add --no-cache git
 
 ENV CGO_ENABLED=0, GO111MODULE=on
 
+WORKDIR /go/src/github.com/chr-fritz/csi-sshfs
+
 ADD . /go/src/github.com/chr-fritz/csi-sshfs
 
 ARG TARGETOS TARGETARCH
