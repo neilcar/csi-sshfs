@@ -6,6 +6,7 @@ WORKDIR .
 
 ADD . ./
 ARG TARGETOS TARGETARCH
+RUN ls -la
 RUN GOOS=$TARGETOS GOARCH=$TARGETARCH go mod download
 RUN GOOS=$TARGETOS GOARCH=$TARGETARCH export BUILD_TIME=`date -R` && \
     export VERSION=`cat version.txt 2&> /dev/null` && \
