@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM golang:1.16-alpine3.16 AS  build-env
+FROM --platform=$BUILDPLATFORM golang:1.16-alpine3.14 AS  build-env
 RUN apk add --no-cache git
 
 ENV CGO_ENABLED=0, GO111MODULE=on
