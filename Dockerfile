@@ -13,7 +13,7 @@ RUN GOOS=$TARGETOS GOARCH=$TARGETARCH go mod download
 RUN GOOS=$TARGETOS GOARCH=$TARGETARCH export BUILD_TIME=`date -R` && \
     export VERSION=`cat version.txt 2&> /dev/null` && \
     apk add --no-cache gcc libc-dev && \
-    go build -o /csi-sshfs -ldflags "-X 'pkg/sshfs.BuildTime=${BUILD_TIME}' -X 'pkg/sshfs.Version=${VERSION}'" gcmd/csi-sshfs
+    go build -o /csi-sshfs -ldflags "-X 'pkg/sshfs.BuildTime=${BUILD_TIME}' -X 'pkg/sshfs.Version=${VERSION}'" cmd/csi-sshfs
 
 FROM alpine:3.16
 
