@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM golang:1.19-alpine3.16 AS  build-env
+FROM --platform=$BUILDPLATFORM golang:1.16-alpine3.16 AS  build-env
 RUN apk add --no-cache git
 
 ENV CGO_ENABLED=0, GO111MODULE=on
@@ -7,7 +7,7 @@ ADD . /go/src/github.com/chr-fritz/csi-sshfs
 
 ARG TARGETOS TARGETARCH
 
-# RUN GOOS=$TARGETOS GOARCH=$TARGETARCH go mod download
+RUN GOOS=$TARGETOS GOARCH=$TARGETARCH go mod download
 RUN GOOS=$TARGETOS GOARCH=$TARGETARCH export BUILD_TIME=`date -R` && \
     export VERSION=`cat version.txt 2&> /dev/null` && \
     apk add --no-cache gcc libc-dev && \
